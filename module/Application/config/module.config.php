@@ -24,6 +24,16 @@ return [
                     ],
                 ],
             ],
+            'new_training' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/new-training',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'newTraining',
+                    ],
+                ],
+            ],
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -57,4 +67,11 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+    'view_helpers' => [
+        'factories' => [
+            View\Helper\TrainingHelper::class => InvokableFactory::class,
+        ], 'aliases'=>[
+            'TrainingHelper'=> View\Helper\TrainingHelper::class
+        ]
+    ]
 ];
