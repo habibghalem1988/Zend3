@@ -72,6 +72,14 @@ class Training
     /**
      * @return mixed
      */
+    public function getId():int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getDescription():string
     {
         return $this->description;

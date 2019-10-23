@@ -1,9 +1,10 @@
-<h1>Training <span class="zf-green"><?php echo $training->getTitle();?></span></h1>
+<a href="<?php echo $this->url('home') ?>">Retour</a>
+<h1> <span class="zf-green"><?php echo $training->getTitle();?> </span> Training</h1>
 
     <p>
        <?php echo  $training->getDescription(); ?>
     </p>
-    <sapn><?php echo $training->getStudentsNbr(); ?></sapn><br/>
+    <sapn><?php echo "Students Number :".$training->getStudentsNbr(); ?></sapn><br/>
 
     <span> Start Date: <?php echo $training->getStartDate()->format('d/m/y'); ?></span><br/>
     <span> Start Date:<?php echo $training->getEndDate()->format('d/m/y'); ?></span><br/>

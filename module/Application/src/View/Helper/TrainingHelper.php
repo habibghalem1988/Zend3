@@ -7,13 +7,13 @@ class TrainingHelper extends AbstractHelper
 {
     public function getStatus(\DateTime $start_date, \DateTime $end_date){
         $status='not_started';
-        $now = new \Datetime('2019-10-22');
+        $now = new \Datetime();
 
         if($end_date>=$now && $now>=$start_date)
-            $status = 'in_progress';
+            $status = ' In Progress';
         else {
-            if($now>$end_date) $status='finished';
-            if($now<$start_date) $status='not_started';
+            if($now>$end_date) $status=' Finished';
+            if($now<$start_date) $status=' Not Started Yet';
         }
         return $status;
     }

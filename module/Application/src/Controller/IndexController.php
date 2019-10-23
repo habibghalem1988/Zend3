@@ -8,6 +8,7 @@
 namespace Application\Controller;
 
 use Application\Entity\Training;
+use Doctrine\ORM\EntityNotFoundException;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -23,11 +24,15 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
-
+        $trainings = $this->entityManager->getRepository(Training::class)->findAll();
+        return new ViewModel(['trainings'=>$trainings]);
     }
     public  function trainingAction(){
         $id = $this->params()->fromRoute('id');
         $training = $this->entityManager->getRepository(Training::class)->find($id);
+        if(empty($training)){
+            throw new EntityNotFoundException('Training Not Found');
+        }
         return new ViewModel(['training'=>$training]);
     }
 }
