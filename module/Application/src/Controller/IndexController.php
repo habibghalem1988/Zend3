@@ -7,27 +7,22 @@
 
 namespace Application\Controller;
 
+use Application\Entity\Training;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+
     public function indexAction()
     {
-        $start_date= new \DateTime('2019-10-22');
-        $end_date= new \DateTime('2019-10-25');
-
-
-
-
-        $duration = $end_date->diff($start_date)->days+1;
-        $intro=['title'=>'Zend Framework 3',
-            'desc'=>'Formation Zend Framework 3 au niveau de Smile',
-            'students'=>"Number of students : 2",
-            'duration'=>$duration,
-            'start_date'=>$start_date,
-            'end_date'=>$end_date];
-        return new ViewModel(['intro'=>$intro]);
+        $training = new Training();
+        $training->setStartDate(new \DateTime('2019-10-22'));
+        $training->setEndDate(new \DateTime('2019-10-25'));
+        $training->setStudentsNbr(2);
+        $training->setTitle('Zend Framework3');
+        $training->setDescription('Paris Smile Zend3 Training');
+        return new ViewModel(['training'=>$training]);
     }
     public function newTrainingAction(){
         $start_date= new \DateTime('2019-10-16');

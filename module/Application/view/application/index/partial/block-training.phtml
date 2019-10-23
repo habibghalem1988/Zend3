@@ -1,13 +1,13 @@
-<h1>Training <span class="zf-green"><?php echo $title;?></span></h1>
+<h1>Training <span class="zf-green"><?php echo $training->getTitle();?></span></h1>
 
     <p>
-       <?php echo  $desc; ?>
+       <?php echo  $training->getDescription(); ?>
     </p>
-    <sapn><?php echo $students; ?></sapn><br/>
+    <sapn><?php echo $training->getStudentsNbr(); ?></sapn><br/>
 
-    <span> Start Date: <?php echo $start_date->format('d/m/y'); ?></span><br/>
-    <span> Start Date:<?php echo $end_date->format('d/m/y'); ?></span><br/>
-    <span> Duration:<?php echo $duration; ?> Jours </span><br/>
+    <span> Start Date: <?php echo $training->getStartDate()->format('d/m/y'); ?></span><br/>
+    <span> Start Date:<?php echo $training->getEndDate()->format('d/m/y'); ?></span><br/>
+    <span> Duration:<?php echo $training->duration(); ?> Jours </span><br/>
     <span> Training:<?php
-        echo $this->TrainingHelper()->getStatus($start_date,$end_date);
+        echo $this->TrainingHelper()->getStatus($training->getStartDate(),$training->getEndDate());
         ?>  </span><br/>
