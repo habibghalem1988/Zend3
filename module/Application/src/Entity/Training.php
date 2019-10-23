@@ -3,14 +3,46 @@
 
 namespace Application\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="training")
+ */
 class Training
 {
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(name="id")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="started_at",  type="datetime")
+     */
     private $start_date;
+
+    /**
+     * @ORM\Column(name="finished_at", type="datetime")
+     */
     private $end_date;
+
+    /**
+     * @ORM\Column(name="students_nbr")
+     */
     private $students_nbr;
+
+    /**
+     * @ORM\Column(name="title")
+     */
+
     private $title;
+
+    /**
+     * @ORM\Column(name="description")
+     */
     private $description;
-    private $duration;
 
 
     /**

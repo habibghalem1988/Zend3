@@ -7,9 +7,12 @@
 
 namespace Application;
 
+use Application\Controller\Factory\IndexControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+
 
 return [
     'router' => [
@@ -24,13 +27,13 @@ return [
                     ],
                 ],
             ],
-            'new_training' => [
-                'type' => Literal::class,
+            'training' => [
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/new-training',
+                    'route'    => '/training/:id',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'newTraining',
+                        'action'     => 'training',
                     ],
                 ],
             ],
@@ -47,9 +50,9 @@ return [
         ],
     ],
     'controllers' => [
-        'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-        ],
+        'factories' => array(
+            Controller\IndexController::class => IndexControllerFactory::class,
+        ),
     ],
     'view_manager' => [
         'display_not_found_reason' => true,
@@ -72,6 +75,20 @@ return [
             View\Helper\TrainingHelper::class => InvokableFactory::class,
         ], 'aliases'=>[
             'TrainingHelper'=> View\Helper\TrainingHelper::class
+        ]
+    ],
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
         ]
     ]
 ];

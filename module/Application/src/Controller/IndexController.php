@@ -13,27 +13,21 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
-
+    /**
+     * @var Doctrine\ORM\EntityManager
+     */
+    private $entityManager;
+    public function __construct( $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     public function indexAction()
     {
-        $training = new Training();
-        $training->setStartDate(new \DateTime('2019-10-22'));
-        $training->setEndDate(new \DateTime('2019-10-25'));
-        $training->setStudentsNbr(2);
-        $training->setTitle('Zend Framework3');
-        $training->setDescription('Paris Smile Zend3 Training');
-        return new ViewModel(['training'=>$training]);
+
     }
-    public function newTrainingAction(){
-        $start_date= new \DateTime('2019-10-16');
-        $end_date= new \DateTime('2019-10-21');
-        $duration = $end_date->diff($start_date)->days+1;
-        $intro=['title'=>'Angular 6',
-            'desc'=>'Formation Angular',
-            'students'=>"Number of students : 2",
-            'duration'=>$duration,
-            'start_date'=>$start_date,
-            'end_date'=>$end_date];
-        return new ViewModel(['intro'=>$intro]);
+    public  function trainingAction(){
+        $id = $this->params()->fromRoute('id');
+        $training = $this->entityManager->getRepository(Training::class)->find($id);
+        return new ViewModel(['training'=>$training]);
     }
 }
