@@ -1,20 +1,19 @@
 <?php
 /**
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
+ * @link      http://github.com/zendframework/ZendSkeletonApi for the canonical source repository
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application\Controller;
+namespace Api\Controller;
 
 use Application\Entity\Student;
 use Application\Entity\Training;
-use Application\Form\TrainingForm;
 use Doctrine\ORM\EntityNotFoundException;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
-use Zend\Hydrator\Reflection;
-use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
+use Zend\Serializer\Serializer;
 class IndexController extends AbstractActionController
 {
     /**
@@ -23,6 +22,7 @@ class IndexController extends AbstractActionController
     private $entityManager;
     public function __construct( $entityManager)
     {
+
         $this->entityManager = $entityManager;
     }
     public function indexAction()
@@ -50,57 +50,29 @@ class IndexController extends AbstractActionController
     }
 
     public  function studentslistAction(){
+        $event =$this->getEvent();
+        $response = $event->getResponse();
+        $response->setStatusCode(200);
         $students_list = $this->entityManager->getRepository(Student::class)->findAll();
-        return new ViewModel(['students_list'=>$students_list]);
-    }
-
-
-
-
-    public function addTrainingStudentAction(){
-        $id = $this->params()->fromRoute('id');
-        echo $id;
-
-        $training = $this->entityManager->getRepository(Training::class)->find($id);
-
-
-
-    }
-
-
-
-
-
-    public function addTrainingAction(){
-        $form = new TrainingForm();
-
-        if($this->getRequest()->isPost())
-        {
-            // Fill in the form with POST data
-            $data = $this->params()->fromPost();
-            $form->setData($data);
-            if($form->isValid()){
-
-                $data = $form->getData();
-                $training = new Training();
-                //$training->setTitle($data[]);
-                $hydrator = new Reflection();
-                $hydrator->hydrate($data, $training);
-
-                $training->setEndDate(new \DateTime($data['end_date']));
-                $training->setStartDate(new \DateTime($data['start_date']));
-
-
-                $this->entityManager->persist($training);
-                $this->entityManager->flush();
-
-            }
-
-
+        $students = array();
+        foreach ($students_list  as $student){
+            $student = ['FirstName'=>$student->getFirstName(),
+                'LastName'=>$student->getLastName(),
+                'BirthDay'=>$student->getBirthDay(),
+                'Class'=>$student->getClass()];
+            array_push($students,$student);
         }
 
-        return new ViewModel([
-            'form' => $form
+
+
+
+        return new JsonModel([
+            'status' => 'SUCCESS',
+            'message'=>'Here is your data',
+            'data' => [
+                'students list' => $students,
+
+            ]
         ]);
     }
 }

@@ -1,0 +1,18 @@
+<?php
+$i=1;
+
+?>
+<H3><?php
+    echo count($students_list); ?> Student</H3>
+<?php
+foreach ($students_list as $student){
+$url = $this->url('student',['id'=>($student->getId())]);
+?>
+<a href="<?php echo $url; ?>">
+    <?php
+    echo $i."-".$student->getFirstName()." ".$student->getLastName()."<br/>";
+    $i++;
+    }
+
+    ?>
+</a>

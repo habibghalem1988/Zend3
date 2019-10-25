@@ -12,3 +12,11 @@
     <span> Training:<?php
         echo $this->TrainingHelper()->getStatus($training->getStartDate(),$training->getEndDate());
         ?>  </span><br/>
+    <h3>Students List</h3>
+    <span> <?php $students = $training->getStudents();
+    $i=1;
+    foreach ($students as $student){
+        echo $i."-".$student->getFirstName()." ".$student->getLastName()."<br/>";
+        $i++;
+    }
+    ?> </span><br/>

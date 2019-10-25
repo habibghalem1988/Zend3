@@ -1,0 +1,17 @@
+<a href="<?php echo $this->url('home') ?>">Retour</a>
+<h3>  Student Details</h3>
+
+
+<sapn><?php echo "Students Class :".$student->getClass();?></sapn><br/>
+<span> First Name : <?php echo $student->getFirstname() ?></span><br/>
+<span> Last Name : <?php echo $student->getLastname() ?></span><br/>
+<span> BirthDay :<?php echo $student->getBirthday()->format('d/m/y'); ?></span><br/>
+
+<h3>Trainings</h3>
+<span> <?php $trainings = $student->getTrainings();
+    $i=1;
+    foreach ($trainings as $training){
+        echo $i."-".$training->getTitle()."<br/>";
+        $i++;
+    }
+    ?> </span>

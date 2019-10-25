@@ -36,4 +36,5 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'Application',
+    'Api'
 ];

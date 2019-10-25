@@ -27,6 +27,16 @@ return [
                     ],
                 ],
             ],
+            'studentslist' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/studentslist',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'studentslist',
+                    ],
+                ],
+            ],
             'training' => [
                 'type' => Segment::class,
                 'options' => [
@@ -34,6 +44,36 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'training',
+                    ],
+                ],
+            ],
+            'training_add_student' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/training/:id/students/add',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'addTrainingStudent',
+                    ],
+                ],
+            ],
+            'add_training' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/add-training',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'addTraining',
+                    ],
+                ],
+            ],
+            'student' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/student/:id',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'student',
                     ],
                 ],
             ],

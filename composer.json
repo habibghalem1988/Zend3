@@ -17,16 +17,19 @@
         "zendframework/zend-mvc": "^3.0.1",
         "zfcampus/zf-development-mode": "^3.0",
         "zendframework/zendframework": "^3.0",
-        "doctrine/doctrine-orm-module": "^2.1"
+        "doctrine/doctrine-orm-module": "^2.1",
+        "zendframework/zend-hydrator": "^2.3"
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "Api\\": "module/Api/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ApplicationTest\\": "module/Application/test/"
+            "ApplicationTest\\": "module/Application/test/",
+            "ApiTest\\": "module/Application/test/"
         }
     },
     "extra": [],

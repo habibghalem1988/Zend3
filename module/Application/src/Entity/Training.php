@@ -4,6 +4,11 @@
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -45,6 +50,17 @@ class Training
     private $description;
 
 
+    /**
+     * Many students have Many trainings.
+     * @ManyToMany(targetEntity="Student", inversedBy="Training")
+     * @JoinTable(name="student_training",joinColumns={@JoinColumn(name="id_training", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="id_student", referencedColumnName="id")})
+     */
+    private $students;
+
+    public function __construct() {
+        $this->students = new ArrayCollection();
+    }
     /**
      * @param mixed $title
      */
@@ -137,6 +153,10 @@ class Training
     public function duration():int
     {
         return ($this->getEndDate()->diff($this->getStartDate())->days+1);
+    }
+
+    public function getStudents(){
+        return $this->students;
     }
 
 }
